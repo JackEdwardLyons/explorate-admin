@@ -1,14 +1,15 @@
 <template>
   <b-container fluid>
+
+    <h1>
+      Loading: {{ loading }}
+    </h1>
     <!-- User Interface controls -->
     <b-row>
       <b-col md="6" class="my-1">
         <b-form-group horizontal label="Filter" class="mb-0">
           <b-input-group>
             <b-form-input v-model="filter" placeholder="Type to Search" />
-            <b-input-group-button>
-              <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
-            </b-input-group-button>
           </b-input-group>
         </b-form-group>
       </b-col>
@@ -18,12 +19,6 @@
             <b-form-select v-model="sortBy" :options="sortOptions">
               <option slot="first" :value="null">-- none --</option>
             </b-form-select>
-            <b-input-group-button>
-              <b-form-select :disabled="!sortBy" v-model="sortDesc">
-                <option :value="false">Asc</option>
-                <option :value="true">Desc</option>
-              </b-form-select>
-            </b-input-group-button>
           </b-input-group>
         </b-form-group>
       </b-col>
@@ -124,6 +119,10 @@ export default {
     }
   },
   computed: {
+    loading () {
+      console.log(this.$store.getters)
+      return this.$store.getters.getLoadingState
+    },
     sortOptions () {
       // Create an options list from our fields
       return this.fields
